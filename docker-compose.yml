@@ -28,7 +28,7 @@ x-airflow-common: &airflow-common
     postgres:
       condition: service_healthy
     minio:
-      condition: service_healthy
+      condition: service_started
 
 services:
   # ---------- Stockage / Data lake ----------
@@ -46,7 +46,9 @@ services:
       retries: 5
 
   minio:
-    image: minio/minio:RELEASE.2024-10-13T13-34-11Z
+    # minio/minio a été retiré de Docker Hub (sept. 2026) → build Chainguard
+    image: cgr.dev/chainguard/minio:latest
+    user: root          # l'image tourne en UID 65532 : root évite les erreurs de droits sur le volume
     command: server /data --console-address ":9001"
     environment:
       MINIO_ROOT_USER: ${MINIO_ROOT_USER}
@@ -56,27 +58,6 @@ services:
       - "9001:9001"
     volumes:
       - minio-data:/data
-    healthcheck:
-      test: ["CMD", "mc", "ready", "local"]
-      interval: 10s
-      retries: 5
-
-  minio-init:
-    image: minio/mc:latest
-    depends_on:
-      minio:
-        condition: service_healthy
-    entrypoint: >
-      /bin/sh -c "
-      mc alias set local http://minio:9000 $${MINIO_ROOT_USER} $${MINIO_ROOT_PASSWORD} &&
-      for b in arxiv-raw hn-raw citations-raw arxiv-clean hn-clean citations-clean; do
-        mc mb --ignore-existing local/$$b;
-      done && echo 'Buckets Medallion OK'
-      "
-    environment:
-      MINIO_ROOT_USER: ${MINIO_ROOT_USER}
-      MINIO_ROOT_PASSWORD: ${MINIO_ROOT_PASSWORD}
-    restart: "no"
 
   # ---------- Elastic Stack (couche Gold / serving) ----------
   elasticsearch:
@@ -144,6 +125,7 @@ services:
     command:
       - -c
       - |
+        python /opt/airflow/scripts/init_buckets.py &&
         airflow db migrate &&
         airflow users create --username "$${AIRFLOW_ADMIN_USER}" --password "$${AIRFLOW_ADMIN_PASSWORD}" \
           --firstname Admin --lastname SciPulse --role Admin --email admin@scipulse.local || true
