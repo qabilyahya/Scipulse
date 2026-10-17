@@ -1,0 +1,136 @@
+{
+  "settings": {
+    "number_of_shards": 1,
+    "number_of_replicas": 0,
+    "analysis": {
+      "analyzer": {
+        "scientific_en": {
+          "type": "custom",
+          "tokenizer": "standard",
+          "filter": [
+            "lowercase",
+            "asciifolding",
+            "english_stop",
+            "english_stemmer"
+          ]
+        }
+      },
+      "filter": {
+        "english_stop": {
+          "type": "stop",
+          "stopwords": "_english_"
+        },
+        "english_stemmer": {
+          "type": "stemmer",
+          "language": "english"
+        }
+      }
+    }
+  },
+  "mappings": {
+    "dynamic": "strict",
+    "properties": {
+      "arxiv_id": {
+        "type": "keyword"
+      },
+      "title": {
+        "type": "text",
+        "analyzer": "scientific_en",
+        "fields": {
+          "raw": {
+            "type": "keyword",
+            "ignore_above": 512
+          }
+        }
+      },
+      "abstract": {
+        "type": "text",
+        "analyzer": "scientific_en"
+      },
+      "authors": {
+        "type": "keyword"
+      },
+      "categories": {
+        "type": "keyword"
+      },
+      "primary_category": {
+        "type": "keyword"
+      },
+      "category_group": {
+        "type": "keyword"
+      },
+      "doi": {
+        "type": "keyword"
+      },
+      "submitted_date": {
+        "type": "date"
+      },
+      "year": {
+        "type": "integer"
+      },
+      "cited_by_count": {
+        "type": "integer"
+      },
+      "citation_velocity": {
+        "type": "float"
+      },
+      "citations_last_2y": {
+        "type": "integer"
+      },
+      "fields": {
+        "type": "keyword"
+      },
+      "hn_score": {
+        "type": "integer"
+      },
+      "hn_comments": {
+        "type": "integer"
+      },
+      "hn_posts": {
+        "type": "integer"
+      },
+      "hn_first_post": {
+        "type": "date"
+      },
+      "cit_norm": {
+        "type": "float"
+      },
+      "hn_norm": {
+        "type": "float"
+      },
+      "recency": {
+        "type": "float"
+      },
+      "impact_score": {
+        "type": "float"
+      },
+      "is_hidden_gem": {
+        "type": "boolean"
+      },
+      "is_hn_hype": {
+        "type": "boolean"
+      },
+      "is_on_hn": {
+        "type": "boolean"
+      },
+      "rank_in_category": {
+        "type": "integer"
+      },
+      "top_terms": {
+        "type": "keyword"
+      },
+      "pagerank": {
+        "type": "float"
+      },
+      "cluster_id": {
+        "type": "integer"
+      },
+      "x_pca": {
+        "type": "float"
+      },
+      "y_pca": {
+        "type": "float"
+      }
+    }
+  }
+}

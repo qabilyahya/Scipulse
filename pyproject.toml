@@ -1,0 +1,20 @@
+[project]
+name = "scipulse"
+version = "0.1.0"
+description = "Plateforme de veille scientifique : ArXiv × Hacker News × citations (Medallion, ELK, Spark)"
+requires-python = ">=3.10"
+authors = [{ name = "Yahya Qabil" }]
+
+[project.optional-dependencies]
+dev = ["pytest>=8", "ruff>=0.6", "jupyter", "matplotlib", "seaborn"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = ["src"]
+
+[tool.ruff]
+line-length = 120
+target-version = "py310"
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "B", "UP"]

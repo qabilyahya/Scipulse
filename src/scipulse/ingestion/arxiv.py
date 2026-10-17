@@ -1,0 +1,68 @@
+"""Bronze ArXiv : téléchargement du dump Kaggle et dépôt brut dans MinIO (aucune transformation)."""
+from __future__ import annotations
+
+import io
+import os
+import zipfile
+from datetime import date
+from pathlib import Path
+
+import requests
+
+from scipulse.common.logging import get_logger
+from scipulse.common.monitoring import emit
+from scipulse.common.storage import put_bytes
+from scipulse.config import buckets, settings
+
+log = get_logger(__name__)
+
+KAGGLE_URL = "https://www.kaggle.com/api/v1/datasets/download/Cornell-University/arxiv"
+DUMP_NAME = "arxiv-metadata-oai-snapshot.json"
+CHUNK_LINES = 50_000
+
+
+def download_dump(dest_dir: str | None = None) -> Path:
+    """Télécharge le zip Kaggle (≈1,5 Go) s'il n'est pas déjà présent dans data/."""
+    dest = Path(dest_dir or settings.data_dir) / "arxiv-metadata.zip"
+    if dest.exists():
+        log.info("Dump déjà présent : %s", dest)
+        return dest
+    auth = (os.environ["KAGGLE_USERNAME"], os.environ["KAGGLE_KEY"])
+    log.info("Téléchargement du dump ArXiv depuis Kaggle…")
+    with requests.get(KAGGLE_URL, auth=auth, stream=True, timeout=60) as r:
+        r.raise_for_status()
+        with open(dest, "wb") as f:
+            for chunk in r.iter_content(chunk_size=1 << 20):
+                f.write(chunk)
+    return dest
+
+
+def upload_to_bronze(zip_path: str | Path, max_records: int | None = None) -> int:
+    """Découpe le JSON Lines en fichiers de CHUNK_LINES lignes, copiés tels quels dans arxiv-raw/.
+
+    max_records limite le volume en développement (ARXIV_MAX_RECORDS) — ce n'est pas une
+    transformation des données, seulement un échantillonnage des premières lignes.
+    """
+    max_records = max_records if max_records is not None else settings.arxiv_max_records
+    prefix = f"ingest_date={date.today().isoformat()}"
+    total, part, buf = 0, 0, io.BytesIO()
+
+    def flush():
+        nonlocal part, buf
+        if buf.tell():
+            put_bytes(buckets.ARXIV_RAW, f"{prefix}/part-{part:05d}.jsonl", buf.getvalue())
+            part += 1
+            buf = io.BytesIO()
+
+    with zipfile.ZipFile(zip_path) as zf, zf.open(DUMP_NAME) as fh:
+        for line in fh:
+            buf.write(line)
+            total += 1
+            if total % CHUNK_LINES == 0:
+                flush()
+            if max_records and total >= max_records:
+                break
+    flush()
+    log.info("ArXiv Bronze : %s lignes, %s fichiers", total, part)
+    emit("ingestion", source="arxiv", layer="bronze", records=total, files=part)
+    return total

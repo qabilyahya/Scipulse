@@ -1,0 +1,37 @@
+{
+  "settings": {
+    "number_of_shards": 1,
+    "number_of_replicas": 0,
+    "analysis": {
+      "analyzer": {
+        "scientific_en": {
+          "type": "custom",
+          "tokenizer": "standard",
+          "filter": ["lowercase", "asciifolding", "english_stop", "english_stemmer"]
+        }
+      },
+      "filter": {
+        "english_stop": { "type": "stop", "stopwords": "_english_" },
+        "english_stemmer": { "type": "stemmer", "language": "english" }
+      }
+    }
+  },
+  "mappings": {
+    "dynamic": "strict",
+    "properties": {
+      "arxiv_id":         { "type": "keyword" },
+      "title":            { "type": "text", "analyzer": "scientific_en",
+                            "fields": { "raw": { "type": "keyword", "ignore_above": 512 } } },
+      "abstract":         { "type": "text", "analyzer": "scientific_en" },
+      "authors":          { "type": "keyword" },
+      "categories":       { "type": "keyword" },
+      "primary_category": { "type": "keyword" },
+      "category_group":   { "type": "keyword" },
+      "doi":              { "type": "keyword" },
+      "submitted_date":   { "type": "date" },
+      "update_date":      { "type": "date" },
+      "n_versions":       { "type": "integer" },
+      "year":             { "type": "integer" }
+    }
+  }
+}
