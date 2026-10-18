@@ -11,6 +11,7 @@ default_args = {"owner": "scipulse", "retries": 1, "retry_delay": timedelta(minu
     schedule="@weekly",
     start_date=datetime(2026, 1, 1),
     catchup=False,
+    max_active_runs=1,
     default_args=default_args,
     tags=["scipulse", "arxiv", "module1"],
 )
@@ -34,3 +35,4 @@ def arxiv_batch():
 
 
 arxiv_batch()
+
