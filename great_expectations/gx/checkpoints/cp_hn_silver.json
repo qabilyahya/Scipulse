@@ -1,0 +1,18 @@
+{
+  "actions": [
+    {
+      "name": "update_data_docs",
+      "site_names": [],
+      "type": "update_data_docs"
+    }
+  ],
+  "id": "17d93285-f35d-46a0-9a57-1ea28611703f",
+  "name": "cp_hn_silver",
+  "result_format": "SUMMARY",
+  "validation_definitions": [
+    {
+      "id": "06ae899c-af47-4f95-ab93-52c77c6b8919",
+      "name": "vd_hn_silver"
+    }
+  ]
+}

@@ -2,6 +2,7 @@
 from __future__ import annotations
 
 import io
+import json
 import os
 import zipfile
 from datetime import date
@@ -28,7 +29,7 @@ def download_dump(dest_dir: str | None = None) -> Path:
         log.info("Dump déjà présent : %s", dest)
         return dest
     auth = (os.environ["KAGGLE_USERNAME"], os.environ["KAGGLE_KEY"])
-    tmp = dest.with_suffix(".zip.part")   # fichier temporaire : un téléchargement coupé n'est jamais pris pour complet
+    tmp = dest.with_suffix(".zip.part")   # un téléchargement coupé n'est jamais pris pour complet
     log.info("Téléchargement du dump ArXiv depuis Kaggle…")
     with requests.get(KAGGLE_URL, auth=auth, stream=True, timeout=60) as r:
         r.raise_for_status()
@@ -37,22 +38,37 @@ def download_dump(dest_dir: str | None = None) -> Path:
             for chunk in r.iter_content(chunk_size=1 << 20):
                 f.write(chunk)
                 done += len(chunk)
-                if done % (100 << 20) < (1 << 20):          # log tous les ~100 Mo
+                if done % (100 << 20) < (1 << 20):
                     log.info("… %s / %s Mo", done >> 20, total >> 20)
     zipfile.ZipFile(tmp).testzip()        # vérifie l'intégrité avant de valider
     tmp.rename(dest)
     return dest
 
 
-def upload_to_bronze(zip_path: str | Path, max_records: int | None = None) -> int:
-    """Découpe le JSON Lines en fichiers de CHUNK_LINES lignes, copiés tels quels dans arxiv-raw/.
+def _in_scope(rec: dict, categories: tuple[str, ...], min_yymm: str, keep_ids: set[str]) -> bool:
+    """Périmètre de veille : catégories ciblées + récence, OU article cité sur Hacker News."""
+    aid = rec.get("id", "")
+    if aid in keep_ids:
+        return True
+    cats = (rec.get("categories") or "").split()
+    if categories and not any(c.startswith(categories) for c in cats):
+        return False
+    # Identifiant nouveau format YYMM.NNNNN → filtre de date sans parser les versions
+    return not min_yymm or (aid[:4].isdigit() and "." in aid and aid[:4] >= min_yymm)
 
-    max_records limite le volume en développement (ARXIV_MAX_RECORDS) — ce n'est pas une
-    transformation des données, seulement un échantillonnage des premières lignes.
+
+def upload_to_bronze(zip_path: str | Path, max_records: int | None = None,
+                     keep_ids: set[str] | None = None) -> int:
+    """Copie dans arxiv-raw/ les lignes du périmètre, TELLES QUELLES (aucune transformation du contenu).
+
+    Périmètre : ARXIV_CATEGORIES + ARXIV_MIN_YYMM, plus tous les articles cités sur HN (hors plafond).
     """
     max_records = max_records if max_records is not None else settings.arxiv_max_records
+    categories = tuple(c for c in os.getenv("ARXIV_CATEGORIES", "cs.,stat.ML").split(",") if c)
+    min_yymm = os.getenv("ARXIV_MIN_YYMM", "2201")
+    keep_ids = keep_ids or set()
     prefix = f"ingest_date={date.today().isoformat()}"
-    total, part, buf = 0, 0, io.BytesIO()
+    total, capped, scanned, part, buf = 0, 0, 0, 0, io.BytesIO()
 
     def flush():
         nonlocal part, buf
@@ -63,13 +79,19 @@ def upload_to_bronze(zip_path: str | Path, max_records: int | None = None) -> in
 
     with zipfile.ZipFile(zip_path) as zf, zf.open(DUMP_NAME) as fh:
         for line in fh:
-            buf.write(line)
+            scanned += 1
+            rec = json.loads(line)
+            if not _in_scope(rec, categories, min_yymm, keep_ids):
+                continue
+            cited_on_hn = rec.get("id") in keep_ids
+            if max_records and capped >= max_records and not cited_on_hn:
+                continue                          # plafond atteint : on ne garde que les articles cités sur HN
+            buf.write(line)                       # ligne brute, octet pour octet
             total += 1
+            capped += 0 if cited_on_hn else 1
             if total % CHUNK_LINES == 0:
                 flush()
-            if max_records and total >= max_records:
-                break
     flush()
-    log.info("ArXiv Bronze : %s lignes, %s fichiers", total, part)
-    emit("ingestion", source="arxiv", layer="bronze", records=total, files=part)
+    log.info("ArXiv Bronze : %s lignes retenues sur %s parcourues, %s fichiers", total, scanned, part)
+    emit("ingestion", source="arxiv", layer="bronze", records=total, scanned=scanned, files=part)
     return total

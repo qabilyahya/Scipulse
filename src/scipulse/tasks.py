@@ -31,8 +31,17 @@ def _write_silver(df: pd.DataFrame, bucket: str, source: str, partition_cols=Non
 
 
 # ---------------- ArXiv ----------------
+def _hn_arxiv_ids() -> set[str]:
+    """Ids ArXiv cités sur Hacker News (Silver HN), pour les garder dans le périmètre."""
+    try:
+        return set(read_parquet(buckets.HN_CLEAN, columns=["arxiv_id"])["arxiv_id"].dropna())
+    except Exception:
+        return set()
+
+
 def arxiv_bronze() -> int:
-    return arxiv_ing.upload_to_bronze(arxiv_ing.download_dump())
+    delete_prefix(buckets.ARXIV_RAW)          # ré-ingestion complète : pas de mélange d'anciens périmètres
+    return arxiv_ing.upload_to_bronze(arxiv_ing.download_dump(), keep_ids=_hn_arxiv_ids())
 
 
 def arxiv_silver() -> int:
@@ -82,3 +91,4 @@ def citations_silver() -> int:
     df = clean_citations(_read_bronze(buckets.CITATIONS_RAW, f"source={source}/"), source)
     validate(df, "citations", "silver")
     return _write_silver(df, buckets.CITATIONS_CLEAN, "citations")
+
