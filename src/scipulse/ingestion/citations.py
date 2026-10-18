@@ -7,7 +7,7 @@ from datetime import datetime, timezone
 
 import requests
 
-from scipulse.cleaning.identifiers import arxiv_id_to_doi
+from scipulse.cleaning.identifiers import arxiv_id_to_doi, doi_to_arxiv_id, extract_arxiv_id_from_url
 from scipulse.common.logging import get_logger
 from scipulse.common.monitoring import emit
 from scipulse.common.storage import put_jsonl
@@ -16,6 +16,7 @@ from scipulse.config import buckets, settings
 log = get_logger(__name__)
 
 OPENALEX = "https://api.openalex.org/works"
+OPENALEX_FIELDS = "id,doi,title,publication_year,cited_by_count,counts_by_year,topics,referenced_works,locations"
 S2_BATCH = "https://api.semanticscholar.org/graph/v1/paper/batch"
 S2_FIELDS = "externalIds,citationCount,influentialCitationCount,fieldsOfStudy,year,tldr"
 
@@ -31,13 +32,34 @@ def _batched(it: Iterable[str], size: int) -> Iterator[list[str]]:
         yield batch
 
 
+def _match_arxiv_id(work: dict, wanted: set[str]) -> str | None:
+    """Retrouve l'id ArXiv demandé dans un work OpenAlex.
+
+    Le champ `doi` d'OpenAlex pointe souvent vers la version publiée (ex. 10.65215/…), pas vers le
+    DOI arXiv : l'id ArXiv se trouve dans `locations` (arxiv.org/abs/…, doi.org/10.48550/arxiv.…).
+    """
+    candidates = [work.get("doi")]
+    for loc in work.get("locations") or []:
+        candidates += [loc.get("landing_page_url"), loc.get("pdf_url")]
+    for c in candidates:
+        aid = extract_arxiv_id_from_url(c) or doi_to_arxiv_id(c)
+        if aid in wanted:
+            return aid
+    return None
+
+
 def fetch_openalex(arxiv_ids: list[str]) -> list[dict]:
-    """50 DOI par requête via le filtre doi:a|b|c."""
+    """50 DOI par requête via le filtre doi:a|b|c ; chaque résultat est annoté avec `_arxiv_id`."""
     dois = "|".join(arxiv_id_to_doi(i) for i in arxiv_ids)
-    params = {"filter": f"doi:{dois}", "per-page": 50, "mailto": settings.openalex_mailto}
+    params = {"filter": f"doi:{dois}", "per-page": 50, "select": OPENALEX_FIELDS,
+              "mailto": settings.openalex_mailto}
     r = requests.get(OPENALEX, params=params, timeout=30)
     r.raise_for_status()
-    return r.json().get("results", [])
+    wanted = set(arxiv_ids)
+    results = r.json().get("results", [])
+    for work in results:
+        work["_arxiv_id"] = _match_arxiv_id(work, wanted)   # métadonnée d'ingestion (clé de jointure)
+    return results
 
 
 def fetch_semantic_scholar(arxiv_ids: list[str]) -> list[dict]:
@@ -57,7 +79,7 @@ def ingest(arxiv_ids: Iterable[str], source: str | None = None, sleep_s: float =
     for n, batch in enumerate(_batched(arxiv_ids, size)):
         try:
             records = fetch(batch)
-        except requests.HTTPError as exc:
+        except requests.RequestException as exc:   # HTTP, timeout, coupure réseau
             log.warning("Batch %s en erreur (%s) — on continue", n, exc)
             time.sleep(5)
             continue
