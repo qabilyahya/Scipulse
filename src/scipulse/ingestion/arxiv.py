@@ -28,12 +28,19 @@ def download_dump(dest_dir: str | None = None) -> Path:
         log.info("Dump déjà présent : %s", dest)
         return dest
     auth = (os.environ["KAGGLE_USERNAME"], os.environ["KAGGLE_KEY"])
+    tmp = dest.with_suffix(".zip.part")   # fichier temporaire : un téléchargement coupé n'est jamais pris pour complet
     log.info("Téléchargement du dump ArXiv depuis Kaggle…")
     with requests.get(KAGGLE_URL, auth=auth, stream=True, timeout=60) as r:
         r.raise_for_status()
-        with open(dest, "wb") as f:
+        total, done = int(r.headers.get("content-length", 0)), 0
+        with open(tmp, "wb") as f:
             for chunk in r.iter_content(chunk_size=1 << 20):
                 f.write(chunk)
+                done += len(chunk)
+                if done % (100 << 20) < (1 << 20):          # log tous les ~100 Mo
+                    log.info("… %s / %s Mo", done >> 20, total >> 20)
+    zipfile.ZipFile(tmp).testzip()        # vérifie l'intégrité avant de valider
+    tmp.rename(dest)
     return dest
 
 
