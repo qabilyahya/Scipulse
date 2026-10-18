@@ -2,7 +2,7 @@ apache-airflow-providers-apache-spark==4.11.0
 pyspark==3.5.3
 boto3==1.35.36
 requests==2.32.3
-pandas==2.2.3
+pandas==2.1.4
 pyarrow==17.0.0
 elasticsearch==8.15.1
 great_expectations==1.2.4
