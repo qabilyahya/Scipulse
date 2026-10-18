@@ -41,13 +41,21 @@ def validate(df: pd.DataFrame, source: str, layer: str = "silver", project_root:
     suite = context.suites.add(suite)
 
     vd_name = f"vd_{name}"
-    try:
-        context.validation_definitions.delete(vd_name)
-    except Exception:
-        pass
+    for collection, obj in ((context.checkpoints, f"cp_{name}"), (context.validation_definitions, vd_name)):
+        try:
+            collection.delete(obj)
+        except Exception:
+            pass
     vd = context.validation_definitions.add(gx.ValidationDefinition(name=vd_name, data=batch_def, suite=suite))
-    result = vd.run(batch_parameters={"dataframe": df})
-    context.build_data_docs()
+
+    # Un Checkpoint (et non vd.run) : il ajoute le run_id nécessaire aux Data Docs et les met à jour
+    checkpoint = context.checkpoints.add(gx.Checkpoint(
+        name=f"cp_{name}",
+        validation_definitions=[vd],
+        actions=[gx.checkpoint.UpdateDataDocsAction(name="update_data_docs")],
+    ))
+    cp_result = checkpoint.run(batch_parameters={"dataframe": df})
+    result = next(iter(cp_result.run_results.values()))
 
     stats = result.statistics
     summary = {

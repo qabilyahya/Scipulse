@@ -1,0 +1,55 @@
+{
+  "expectations": [
+    {
+      "id": "68c6cc73-f418-4547-ae50-9e0ac800812f",
+      "kwargs": {
+        "column": "hn_id"
+      },
+      "meta": {},
+      "type": "expect_column_values_to_not_be_null"
+    },
+    {
+      "id": "4f998804-5650-40ae-849e-9522da7f1684",
+      "kwargs": {
+        "column": "score",
+        "min_value": 0.0
+      },
+      "meta": {},
+      "type": "expect_column_values_to_be_between"
+    },
+    {
+      "id": "3fdb7ecb-fa01-49dc-8fc8-a41e94dfac23",
+      "kwargs": {
+        "column": "num_comments",
+        "min_value": 0.0
+      },
+      "meta": {},
+      "type": "expect_column_values_to_be_between"
+    },
+    {
+      "id": "497b1cee-ce04-45a5-80a6-65576ffbf770",
+      "kwargs": {
+        "column": "type",
+        "value_set": [
+          "story"
+        ]
+      },
+      "meta": {},
+      "type": "expect_column_values_to_be_in_set"
+    },
+    {
+      "id": "e906a31a-e64b-42c7-ac8c-6676ab7e73f4",
+      "kwargs": {
+        "column": "posted_at"
+      },
+      "meta": {},
+      "type": "expect_column_values_to_not_be_null"
+    }
+  ],
+  "id": "54f6a66a-296a-4548-b75b-79d724d80c2e",
+  "meta": {
+    "great_expectations_version": "1.2.4"
+  },
+  "name": "hn_silver",
+  "notes": null
+}

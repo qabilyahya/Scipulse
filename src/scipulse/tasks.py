@@ -61,7 +61,7 @@ def hn_backfill(pages: int = 50) -> int:
 def hn_silver() -> int:
     df = clean_hn(pd.DataFrame(_read_bronze(buckets.HN_RAW)))
     validate(df, "hn", "silver")
-    return _write_silver(df, buckets.HN_CLEAN, "hn", partition_cols=["date"])
+    return _write_silver(df, buckets.HN_CLEAN, "hn", partition_cols=["year"])
 
 
 # ---------------- Citations ----------------

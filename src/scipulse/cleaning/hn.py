@@ -6,21 +6,28 @@ import pandas as pd
 from scipulse.cleaning.identifiers import extract_arxiv_id_from_url
 
 
+def _col(raw: pd.DataFrame, name: str, default=None) -> pd.Series:
+    """Colonne si présente, sinon série remplie de `default` (un lot peut venir d'une seule API)."""
+    return raw[name] if name in raw.columns else pd.Series(default, index=raw.index, dtype="object")
+
+
+def _pick(raw: pd.DataFrame, is_algolia: pd.Series, firebase_col: str, algolia_col: str) -> pd.Series:
+    return _col(raw, firebase_col).where(~is_algolia, _col(raw, algolia_col))
+
+
 def clean_hn(raw: pd.DataFrame) -> pd.DataFrame:
     # Les deux API n'ont pas le même schéma : on harmonise
-    is_algolia = raw.get("_source", pd.Series("firebase", index=raw.index)) == "algolia"
+    is_algolia = _col(raw, "_source", "firebase") == "algolia"
     df = pd.DataFrame({
-        "hn_id": pd.to_numeric(raw.get("id").where(~is_algolia, raw.get("objectID")), errors="coerce"),
-        "title": raw.get("title"),
-        "url": raw.get("url"),
-        "score": pd.to_numeric(raw.get("score").where(~is_algolia, raw.get("points")), errors="coerce"),
-        "num_comments": pd.to_numeric(
-            raw.get("descendants").where(~is_algolia, raw.get("num_comments")), errors="coerce"
-        ),
-        "time": pd.to_numeric(raw.get("time").where(~is_algolia, raw.get("created_at_i")), errors="coerce"),
-        "type": raw.get("type", pd.Series("story", index=raw.index)).fillna("story"),
-        "deleted": raw.get("deleted", pd.Series(False, index=raw.index)).fillna(False).astype(bool),
-        "dead": raw.get("dead", pd.Series(False, index=raw.index)).fillna(False).astype(bool),
+        "hn_id": pd.to_numeric(_pick(raw, is_algolia, "id", "objectID"), errors="coerce"),
+        "title": _col(raw, "title"),
+        "url": _col(raw, "url"),
+        "score": pd.to_numeric(_pick(raw, is_algolia, "score", "points"), errors="coerce"),
+        "num_comments": pd.to_numeric(_pick(raw, is_algolia, "descendants", "num_comments"), errors="coerce"),
+        "time": pd.to_numeric(_pick(raw, is_algolia, "time", "created_at_i"), errors="coerce"),
+        "type": _col(raw, "type", "story").fillna("story"),
+        "deleted": _col(raw, "deleted", False).fillna(False).astype(bool),
+        "dead": _col(raw, "dead", False).fillna(False).astype(bool),
     })
     df["posted_at"] = pd.to_datetime(df["time"], unit="s", utc=True, errors="coerce")
     df["arxiv_id"] = df["url"].map(extract_arxiv_id_from_url)
@@ -31,5 +38,5 @@ def clean_hn(raw: pd.DataFrame) -> pd.DataFrame:
     df["hn_id"] = df["hn_id"].astype("int64")
     # Un même post peut être vu plusieurs fois (polling) : on garde le score le plus récent/élevé
     df = df.sort_values("score").drop_duplicates(subset="hn_id", keep="last")
-    df["date"] = df["posted_at"].dt.strftime("%Y-%m-%d")
+    df["year"] = df["posted_at"].dt.year
     return df.drop(columns=["deleted", "dead", "time"]).reset_index(drop=True)

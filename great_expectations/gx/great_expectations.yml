@@ -93,5 +93,13 @@ fluent_datasources:
           whole:
             id: 81d521c9-400d-4de8-85fe-1f6969cb7238
             partitioner:
+      hn_silver:
+        type: dataframe
+        id: bcceb9f5-5a1f-4bad-9dcf-1412510aebb5
+        batch_metadata: {}
+        batch_definitions:
+          whole:
+            id: 5e841a2b-0908-487d-9568-d9afb341e70d
+            partitioner:
 analytics_enabled:
 data_context_id: 056ecb96-cf55-4e64-ac95-6b82aa015c67

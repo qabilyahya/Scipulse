@@ -33,3 +33,12 @@ def test_clean_hn_harmonizes_sources():
     assert df["hn_id"].tolist() == [1, 2]
     assert df["arxiv_id"].tolist() == ["2301.00001", "2302.00002"]
     assert df["score"].tolist() == [10, 50]
+
+
+def test_clean_hn_single_source_batch():
+    """Un lot 100 % Algolia (backfill) ne doit pas planter malgré l'absence des colonnes Firebase."""
+    raw = pd.DataFrame([{"_source": "algolia", "objectID": "5", "title": "t", "url": "https://arxiv.org/abs/2301.00005",
+                         "points": 12, "num_comments": 2, "created_at_i": 1700000000}])
+    df = clean_hn(raw)
+    assert df["hn_id"].tolist() == [5]
+    assert df["year"].tolist() == [2023]

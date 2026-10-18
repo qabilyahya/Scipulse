@@ -15,6 +15,7 @@ x-airflow-common: &airflow-common
     AIRFLOW__WEBSERVER__EXPOSE_CONFIG: "true"
     AIRFLOW_CONN_SPARK_DEFAULT: spark://spark-master:7077?deploy-mode=client
     PYTHONPATH: /opt/airflow/src
+    GX_ANALYTICS_ENABLED: "false"
   volumes:
     - ./dags:/opt/airflow/dags
     - ./src:/opt/airflow/src

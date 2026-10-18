@@ -1,0 +1,22 @@
+{
+  "data": {
+    "asset": {
+      "id": "bcceb9f5-5a1f-4bad-9dcf-1412510aebb5",
+      "name": "hn_silver"
+    },
+    "batch_definition": {
+      "id": "5e841a2b-0908-487d-9568-d9afb341e70d",
+      "name": "whole"
+    },
+    "datasource": {
+      "id": "b4276ec5-ffcd-4e7a-9bb5-67ed1070fb31",
+      "name": "pandas"
+    }
+  },
+  "id": "d3c4913b-9d87-4358-9d13-8f9125cf1c4f",
+  "name": "vd_hn_silver",
+  "suite": {
+    "id": "54f6a66a-296a-4548-b75b-79d724d80c2e",
+    "name": "hn_silver"
+  }
+}
