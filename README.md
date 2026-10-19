@@ -227,3 +227,7 @@ l'association des citations (`make test`).
 ├── scripts/                 # init buckets, index ES, data views Kibana
 └── tests/                   # tests unitaires (pytest)
 ```
+
+---
+
+*Projet réalisé par Yahya Qabil, avec l'assistance de Claude (Anthropic) pour une partie du code et de la documentation.*
