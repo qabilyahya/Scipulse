@@ -109,5 +109,21 @@ fluent_datasources:
           whole:
             id: 66a3c631-e446-46b7-bb12-4a91b7ceeb4a
             partitioner:
+      arxiv_test:
+        type: dataframe
+        id: 65f0e710-4794-428a-966e-8374db9b0b4c
+        batch_metadata: {}
+        batch_definitions:
+          whole:
+            id: a1310917-23e3-43fb-97ea-358e38f4b68f
+            partitioner:
+      hn_test:
+        type: dataframe
+        id: 5debbdc7-1154-46d2-a0e1-23617961c099
+        batch_metadata: {}
+        batch_definitions:
+          whole:
+            id: 7c49811b-49e1-4f5d-b0ce-c3f81b2985db
+            partitioner:
 analytics_enabled:
 data_context_id: 056ecb96-cf55-4e64-ac95-6b82aa015c67
