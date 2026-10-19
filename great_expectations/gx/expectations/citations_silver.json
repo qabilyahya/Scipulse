@@ -1,7 +1,7 @@
 {
   "expectations": [
     {
-      "id": "e5890dc9-ef08-4df3-a69e-ec35f6383bf7",
+      "id": "b2033d00-a1c4-4a5b-a591-ad41c5435f98",
       "kwargs": {
         "column": "arxiv_id"
       },
@@ -9,7 +9,7 @@
       "type": "expect_column_values_to_not_be_null"
     },
     {
-      "id": "4e14048a-76ac-40e7-9c02-1599a6671368",
+      "id": "d208d9cc-a331-4087-9f61-38451f96fa8c",
       "kwargs": {
         "column": "cited_by_count",
         "min_value": 0.0
@@ -18,7 +18,7 @@
       "type": "expect_column_values_to_be_between"
     },
     {
-      "id": "de540717-53f3-483a-8c4d-d460e6440ab9",
+      "id": "db25845d-7213-42f7-83e6-cc4233cdce08",
       "kwargs": {
         "column": "doi",
         "mostly": 0.95,
@@ -28,7 +28,7 @@
       "type": "expect_column_values_to_match_regex"
     }
   ],
-  "id": "c1836a00-ddd4-49bf-a258-586a3246c579",
+  "id": "9f911475-5fbf-47d0-b826-dedf9da4ba19",
   "meta": {
     "great_expectations_version": "1.2.4"
   },

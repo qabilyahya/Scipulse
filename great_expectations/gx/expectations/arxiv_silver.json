@@ -1,7 +1,7 @@
 {
   "expectations": [
     {
-      "id": "3942c525-bd68-4dba-ae6d-d8aa019744b4",
+      "id": "58aef1b4-951c-4b5a-b52c-92f2f7f5fef6",
       "kwargs": {
         "column": "arxiv_id"
       },
@@ -9,7 +9,7 @@
       "type": "expect_column_values_to_not_be_null"
     },
     {
-      "id": "921bae28-0b1f-4251-b6f2-ccda4a0ba3c2",
+      "id": "25dbf006-9344-431e-863d-c4c6b038a140",
       "kwargs": {
         "column": "arxiv_id",
         "regex": "^(\\d{4}\\.\\d{4,5}|[a-z\\-]+(\\.[a-z]{2})?/\\d{7})$"
@@ -18,7 +18,7 @@
       "type": "expect_column_values_to_match_regex"
     },
     {
-      "id": "c83994bb-92d2-4e52-b073-bc9e6cde1c17",
+      "id": "48843167-dc2a-4048-87b3-56fb892253b2",
       "kwargs": {
         "column": "primary_category"
       },
@@ -26,7 +26,7 @@
       "type": "expect_column_values_to_not_be_null"
     },
     {
-      "id": "76336411-f1ca-40b7-ac00-96824d6eaa4e",
+      "id": "a0769d22-a237-49d8-b81b-9812cfb9575f",
       "kwargs": {
         "column": "submitted_date"
       },
@@ -34,16 +34,17 @@
       "type": "expect_column_values_to_not_be_null"
     },
     {
-      "id": "727bf08a-928d-486d-b2eb-33a7b188a6f0",
+      "id": "210d82d5-832e-4419-b3c5-c66ed939682d",
       "kwargs": {
         "column": "abstract",
-        "min_value": 20
+        "min_value": 20,
+        "mostly": 0.999
       },
       "meta": {},
       "type": "expect_column_value_lengths_to_be_between"
     },
     {
-      "id": "16739d5d-2a2e-47f8-b73f-9ef383d0ccca",
+      "id": "7bb5a1ad-5c76-4331-bb08-94d0b368008c",
       "kwargs": {
         "column": "year",
         "max_value": 2030.0,
@@ -53,7 +54,7 @@
       "type": "expect_column_values_to_be_between"
     }
   ],
-  "id": "6c39f829-8f5e-441d-b9ee-9c7679533c83",
+  "id": "1014a5bf-59a0-4446-a042-397cba8c116b",
   "meta": {
     "great_expectations_version": "1.2.4"
   },

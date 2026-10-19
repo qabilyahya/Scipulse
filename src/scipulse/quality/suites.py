@@ -12,7 +12,7 @@ ARXIV_SUITE = [
                                         "regex": r"^(\d{4}\.\d{4,5}|[a-z\-]+(\.[a-z]{2})?/\d{7})$"}),
     ("ExpectColumnValuesToNotBeNull", {"column": "primary_category"}),
     ("ExpectColumnValuesToNotBeNull", {"column": "submitted_date"}),
-    ("ExpectColumnValueLengthsToBeBetween", {"column": "abstract", "min_value": 20}),
+    ("ExpectColumnValueLengthsToBeBetween", {"column": "abstract", "min_value": 20, "mostly": 0.999}),
     ("ExpectColumnValuesToBeBetween", {"column": "year", "min_value": 1991, "max_value": 2030}),
 ]
 
@@ -33,3 +33,4 @@ CITATIONS_SUITE = [
 ]
 
 SUITES = {"arxiv": ARXIV_SUITE, "hn": HN_SUITE, "citations": CITATIONS_SUITE}
+

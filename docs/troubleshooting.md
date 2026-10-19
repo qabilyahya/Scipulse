@@ -11,3 +11,4 @@
 | `Fragment would be written into 4714 partitions` | Partitionnement HN par jour sur 15 ans d'historique | Partitionnement par année |
 | `KeyError: run_id` dans les Data Docs GE | `ValidationDefinition.run()` sans Checkpoint | `gx.Checkpoint` + `UpdateDataDocsAction` |
 | | | |
+| GE arxiv_silver 5/6 (83 %) | 1 résumé de 13 caractères (1110.2832 « Probably not. »), article légitime | `mostly=0.999` sur la longueur du résumé : on garde la donnée |
