@@ -6,12 +6,12 @@
       "type": "update_data_docs"
     }
   ],
-  "id": "28d9d2ec-371c-49fc-b8bc-a1edbb62d45f",
+  "id": "837f7173-d3ac-486b-a925-c89d11595df3",
   "name": "cp_arxiv_test",
   "result_format": "SUMMARY",
   "validation_definitions": [
     {
-      "id": "2a0668b7-bab8-4aad-b4f5-04c4a332edab",
+      "id": "f8f4e32d-76fe-410f-8698-c5b558204ab5",
       "name": "vd_arxiv_test"
     }
   ]
