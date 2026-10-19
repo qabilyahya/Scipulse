@@ -35,11 +35,11 @@ airflow-shell: ## Shell dans le scheduler Airflow
 	$(COMPOSE) exec airflow-scheduler bash
 
 spark-gold: ## Lance le job Spark Gold manuellement
-	$(COMPOSE) exec airflow-scheduler spark-submit --master $${SPARK_MASTER:-spark://spark-master:7077} \
-		/opt/airflow/src/scipulse/spark/gold_job.py
+	$(COMPOSE) exec airflow-scheduler python /opt/airflow/src/scipulse/spark/gold_job.py
 
 test: ## Tests unitaires
 	PYTHONPATH=src pytest -q
 
 lint: ## Lint
 	ruff check src dags tests
+

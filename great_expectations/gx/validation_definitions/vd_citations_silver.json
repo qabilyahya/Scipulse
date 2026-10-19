@@ -1,0 +1,22 @@
+{
+  "data": {
+    "asset": {
+      "id": "7fd0a230-aba4-4fb7-9354-05cc41fe3cb3",
+      "name": "citations_silver"
+    },
+    "batch_definition": {
+      "id": "66a3c631-e446-46b7-bb12-4a91b7ceeb4a",
+      "name": "whole"
+    },
+    "datasource": {
+      "id": "b4276ec5-ffcd-4e7a-9bb5-67ed1070fb31",
+      "name": "pandas"
+    }
+  },
+  "id": "8c662301-d625-4ae4-a2af-d02a52cb9bef",
+  "name": "vd_citations_silver",
+  "suite": {
+    "id": "c1836a00-ddd4-49bf-a258-586a3246c579",
+    "name": "citations_silver"
+  }
+}

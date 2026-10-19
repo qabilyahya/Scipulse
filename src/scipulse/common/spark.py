@@ -50,4 +50,5 @@ def _ship_package(spark: SparkSession) -> None:
 
 
 def s3a(bucket: str, path: str = "") -> str:
-    return f"s3a://{bucket}/{path}".rstrip("/")
+    return f"s3a://{bucket}/{path.lstrip('/')}"
+

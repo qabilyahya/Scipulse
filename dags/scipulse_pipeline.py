@@ -35,7 +35,7 @@ def scipulse_pipeline():
     # BashOperator : plus simple à déboguer que SparkSubmitOperator (même commande qu'en local)
     spark_gold = BashOperator(
         task_id="spark_gold",
-        bash_command="spark-submit --master $SPARK_MASTER /opt/airflow/src/scipulse/spark/gold_job.py",
+        bash_command="python /opt/airflow/src/scipulse/spark/gold_job.py",
     )
 
     hn = hn_silver()
@@ -43,3 +43,4 @@ def scipulse_pipeline():
 
 
 scipulse_pipeline()
+
