@@ -101,7 +101,8 @@ services:
 
   # ---------- Spark ----------
   spark-master:
-    image: apache/spark:3.5.3-scala2.12-java17-python3-ubuntu
+    build: docker/spark
+    image: scipulse-spark:3.5.3
     command: /opt/spark/bin/spark-class org.apache.spark.deploy.master.Master
     environment:
       SPARK_NO_DAEMONIZE: "true"
@@ -110,7 +111,8 @@ services:
       - "7077:7077"
 
   spark-worker:
-    image: apache/spark:3.5.3-scala2.12-java17-python3-ubuntu
+    build: docker/spark
+    image: scipulse-spark:3.5.3
     command: /opt/spark/bin/spark-class org.apache.spark.deploy.worker.Worker spark://spark-master:7077
     environment:
       SPARK_WORKER_MEMORY: 2g
@@ -153,3 +155,4 @@ volumes:
   minio-data:
   es-data:
   airflow-logs:
+

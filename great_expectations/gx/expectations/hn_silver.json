@@ -1,7 +1,7 @@
 {
   "expectations": [
     {
-      "id": "afc81f58-a3cd-40ea-ba6b-c3b2a5fac206",
+      "id": "2292e18e-8ba1-4019-8737-1e701bae677d",
       "kwargs": {
         "column": "hn_id"
       },
@@ -9,7 +9,7 @@
       "type": "expect_column_values_to_not_be_null"
     },
     {
-      "id": "a0b1e765-1aa6-4e27-9997-7f61a507e60c",
+      "id": "90bd271a-1029-42f2-939a-1b7f2989bb0e",
       "kwargs": {
         "column": "score",
         "min_value": 0.0
@@ -18,7 +18,7 @@
       "type": "expect_column_values_to_be_between"
     },
     {
-      "id": "70cb1f14-159d-4559-8c7f-0e3b00014756",
+      "id": "5f2e70db-cba0-4fe5-a75d-7c440b6d60b0",
       "kwargs": {
         "column": "num_comments",
         "min_value": 0.0
@@ -27,7 +27,7 @@
       "type": "expect_column_values_to_be_between"
     },
     {
-      "id": "7368ed6e-1f75-405a-a849-e6dd55f5e1c7",
+      "id": "b64782a8-16df-46d0-aa89-f3673e74bbe7",
       "kwargs": {
         "column": "type",
         "value_set": [
@@ -38,7 +38,7 @@
       "type": "expect_column_values_to_be_in_set"
     },
     {
-      "id": "cb44c464-b9b9-4fe0-916f-137caf30b044",
+      "id": "89429272-cf78-4487-ab4a-38934b9b8511",
       "kwargs": {
         "column": "posted_at"
       },
@@ -46,7 +46,7 @@
       "type": "expect_column_values_to_not_be_null"
     }
   ],
-  "id": "82a36623-acbf-4d31-934c-0501f5442b13",
+  "id": "ebc00952-ae87-4ac8-85d1-fa23859c57a9",
   "meta": {
     "great_expectations_version": "1.2.4"
   },

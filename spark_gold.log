@@ -8,7 +8,7 @@ The jars for the packages stored in: /home/airflow/.ivy2/jars
 org.apache.hadoop#hadoop-aws added as a dependency
 com.amazonaws#aws-java-sdk-bundle added as a dependency
 org.elasticsearch#elasticsearch-spark-30_2.12 added as a dependency
-:: resolving dependencies :: org.apache.spark#spark-submit-parent-f273790d-6ae7-4751-9a27-037245234d1b;1.0
+:: resolving dependencies :: org.apache.spark#spark-submit-parent-42f6c08f-78ec-4481-a1a2-8cc0d3167518;1.0
 	confs: [default]
 	found org.apache.hadoop#hadoop-aws;3.3.4 in central
 	found com.amazonaws#aws-java-sdk-bundle;1.12.262 in central
@@ -19,7 +19,7 @@ org.elasticsearch#elasticsearch-spark-30_2.12 added as a dependency
 	found commons-logging#commons-logging;1.1.1 in central
 	found javax.xml.bind#jaxb-api;2.3.1 in central
 	found org.apache.spark#spark-yarn_2.12;3.4.3 in central
-:: resolution report :: resolve 713ms :: artifacts dl 34ms
+:: resolution report :: resolve 658ms :: artifacts dl 28ms
 	:: modules in use:
 	com.amazonaws#aws-java-sdk-bundle;1.12.262 from central in [default]
 	commons-logging#commons-logging;1.1.1 from central in [default]
@@ -36,61 +36,134 @@ org.elasticsearch#elasticsearch-spark-30_2.12 added as a dependency
 	---------------------------------------------------------------------
 	|      default     |   9   |   0   |   0   |   0   ||   9   |   0   |
 	---------------------------------------------------------------------
-:: retrieving :: org.apache.spark#spark-submit-parent-f273790d-6ae7-4751-9a27-037245234d1b
+:: retrieving :: org.apache.spark#spark-submit-parent-42f6c08f-78ec-4481-a1a2-8cc0d3167518
 	confs: [default]
-	0 artifacts copied, 9 already retrieved (0kB/27ms)
-26/10/19 00:07:09 WARN NativeCodeLoader: Unable to load native-hadoop library for your platform... using builtin-java classes where applicable
+	0 artifacts copied, 9 already retrieved (0kB/18ms)
+26/10/19 00:17:42 WARN NativeCodeLoader: Unable to load native-hadoop library for your platform... using builtin-java classes where applicable
 Setting default log level to "WARN".
 To adjust logging level use sc.setLogLevel(newLevel). For SparkR, use setLogLevel(newLevel).
-26/10/19 00:07:22 WARN MetricsConfig: Cannot locate configuration: tried hadoop-metrics2-s3a-file-system.properties,hadoop-metrics2.properties
+26/10/19 00:17:52 WARN MetricsConfig: Cannot locate configuration: tried hadoop-metrics2-s3a-file-system.properties,hadoop-metrics2.properties
 
 [Stage 0:>                                                         (0 + 0) / 35]
 
 [Stage 0:>                                                         (0 + 2) / 35]
 
-[Stage 0:>                                                         (0 + 4) / 35]
+[Stage 0:===>                                                      (2 + 2) / 35]
 
-[Stage 0:=========>                                                (6 + 2) / 35]
+[Stage 0:=============>                                            (8 + 2) / 35]
 
-[Stage 0:======================>                                  (14 + 2) / 35]
+[Stage 0:======================>                                  (14 + 3) / 35]
 
-[Stage 0:==================================>                      (21 + 2) / 35]
+[Stage 0:===================================>                     (22 + 2) / 35]
 
 [Stage 0:================================================>        (30 + 2) / 35]
 
                                                                                 
 
 [Stage 1:>                                                          (0 + 1) / 1]
-26/10/19 00:07:53 WARN TaskSetManager: Lost task 0.0 in stage 1.0 (TID 35) (172.18.0.10 executor 0): org.apache.spark.sql.AnalysisException: Illegal Parquet type: INT64 (TIMESTAMP(NANOS,true)).
-	at org.apache.spark.sql.errors.QueryCompilationErrors$.illegalParquetTypeError(QueryCompilationErrors.scala:1825)
-	at org.apache.spark.sql.execution.datasources.parquet.ParquetToSparkSchemaConverter.illegalType$1(ParquetSchemaConverter.scala:199)
-	at org.apache.spark.sql.execution.datasources.parquet.ParquetToSparkSchemaConverter.$anonfun$convertPrimitiveField$2(ParquetSchemaConverter.scala:276)
-	at scala.Option.getOrElse(Option.scala:189)
-	at org.apache.spark.sql.execution.datasources.parquet.ParquetToSparkSchemaConverter.convertPrimitiveField(ParquetSchemaConverter.scala:217)
-	at org.apache.spark.sql.execution.datasources.parquet.ParquetToSparkSchemaConverter.convertField(ParquetSchemaConverter.scala:180)
-	at org.apache.spark.sql.execution.datasources.parquet.ParquetToSparkSchemaConverter.$anonfun$convertInternal$3(ParquetSchemaConverter.scala:140)
-	at org.apache.spark.sql.execution.datasources.parquet.ParquetToSparkSchemaConverter.$anonfun$convertInternal$3$adapted(ParquetSchemaConverter.scala:110)
-	at scala.collection.TraversableLike.$anonfun$map$1(TraversableLike.scala:286)
-	at scala.collection.immutable.Range.foreach(Range.scala:158)
-	at scala.collection.TraversableLike.map(TraversableLike.scala:286)
-	at scala.collection.TraversableLike.map$(TraversableLike.scala:279)
-	at scala.collection.AbstractTraversable.map(Traversable.scala:108)
-	at org.apache.spark.sql.execution.datasources.parquet.ParquetToSparkSchemaConverter.convertInternal(ParquetSchemaConverter.scala:110)
-	at org.apache.spark.sql.execution.datasources.parquet.ParquetToSparkSchemaConverter.convert(ParquetSchemaConverter.scala:80)
-	at org.apache.spark.sql.execution.datasources.parquet.ParquetFileFormat$.$anonfun$readSchemaFromFooter$2(ParquetFileFormat.scala:514)
-	at scala.Option.getOrElse(Option.scala:189)
-	at org.apache.spark.sql.execution.datasources.parquet.ParquetFileFormat$.readSchemaFromFooter(ParquetFileFormat.scala:514)
-	at org.apache.spark.sql.execution.datasources.parquet.ParquetFileFormat$.$anonfun$mergeSchemasInParallel$2(ParquetFileFormat.scala:494)
-	at scala.collection.immutable.Stream.map(Stream.scala:418)
-	at org.apache.spark.sql.execution.datasources.parquet.ParquetFileFormat$.$anonfun$mergeSchemasInParallel$1(ParquetFileFormat.scala:494)
-	at org.apache.spark.sql.execution.datasources.parquet.ParquetFileFormat$.$anonfun$mergeSchemasInParallel$1$adapted(ParquetFileFormat.scala:485)
-	at org.apache.spark.sql.execution.datasources.SchemaMergeUtils$.$anonfun$mergeSchemasInParallel$2(SchemaMergeUtils.scala:80)
-	at org.apache.spark.rdd.RDD.$anonfun$mapPartitions$2(RDD.scala:858)
-	at org.apache.spark.rdd.RDD.$anonfun$mapPartitions$2$adapted(RDD.scala:858)
-	at org.apache.spark.rdd.MapPartitionsRDD.compute(MapPartitionsRDD.scala:52)
-	at org.apache.spark.rdd.RDD.computeOrReadCheckpoint(RDD.scala:367)
-	at org.apache.spark.rdd.RDD.iterator(RDD.scala:331)
-	at org.apache.spark.scheduler.ResultTask.runTask(ResultTask.scala:93)
+
+                                                                                
+
+[Stage 4:>                                                          (0 + 1) / 1]
+
+[Stage 4:>                  (0 + 1) / 1][Stage 5:>                  (0 + 1) / 2]
+
+[Stage 4:>                  (0 + 1) / 1][Stage 5:>                  (0 + 2) / 2]
+
+                                                                                
+
+[Stage 5:>                                                          (0 + 2) / 2]
+
+                                                                                
+
+[Stage 8:>                                                          (0 + 2) / 3]
+
+[Stage 8:=======================================>                   (2 + 1) / 3]
+
+                                                                                
+2026-10-19 00:18:26,407 INFO [gold_job] Match coverage : {'total': 218851, 'with_citations': 6814, 'with_hn': 18851, 'with_both': 6595, 'pct_with_citations': 3.11, 'pct_with_hn': 8.61, 'pct_with_both': 3.01}
+
+[Stage 12:>                                                         (0 + 2) / 3]
+
+[Stage 12:===================>                                      (1 + 2) / 3]
+
+[Stage 12:======================================>                   (2 + 1) / 3]
+
+[Stage 13:>                                                         (0 + 2) / 3]
+
+[Stage 13:======================================>                   (2 + 1) / 3]
+
+                                                                                
+
+[Stage 16:>                                                         (0 + 2) / 3]
+
+[Stage 16:>                                                         (0 + 3) / 3]
+
+[Stage 16:======================================>                   (2 + 1) / 3]
+
+                                                                                
+26/10/19 00:19:36 WARN SparkStringUtils: Truncated the string representation of a plan since it was too large. This behavior can be adjusted by setting 'spark.sql.debug.maxToStringFields'.
+
+[Stage 17:>                                                         (0 + 2) / 3]
+
+[Stage 17:======================================>                   (2 + 1) / 3]
+
+[Stage 19:>                                                         (0 + 2) / 4]
+26/10/19 00:19:47 WARN TaskSetManager: Lost task 0.0 in stage 19.0 (TID 64) (172.18.0.10 executor 0): org.apache.spark.api.python.PythonException: Traceback (most recent call last):
+  File "/opt/spark/python/lib/pyspark.zip/pyspark/worker.py", line 1247, in main
+    process()
+  File "/opt/spark/python/lib/pyspark.zip/pyspark/worker.py", line 1239, in process
+    serializer.dump_stream(out_iter, outfile)
+  File "/opt/spark/python/lib/pyspark.zip/pyspark/serializers.py", line 225, in dump_stream
+    self.serializer.dump_stream(self._batched(iterator), stream)
+  File "/opt/spark/python/lib/pyspark.zip/pyspark/serializers.py", line 146, in dump_stream
+    for obj in iterator:
+  File "/opt/spark/python/lib/pyspark.zip/pyspark/serializers.py", line 214, in _batched
+    for item in iterator:
+  File "/opt/spark/python/lib/pyspark.zip/pyspark/serializers.py", line 152, in load_stream
+    yield self._read_with_length(stream)
+  File "/opt/spark/python/lib/pyspark.zip/pyspark/serializers.py", line 174, in _read_with_length
+    return self.loads(obj)
+  File "/opt/spark/python/lib/pyspark.zip/pyspark/serializers.py", line 472, in loads
+    return cloudpickle.loads(obj, encoding=encoding)
+  File "/opt/spark/python/lib/pyspark.zip/pyspark/sql/types.py", line 1377, in _parse_datatype_json_string
+    return _parse_datatype_json_value(json.loads(json_string))
+  File "/opt/spark/python/lib/pyspark.zip/pyspark/sql/types.py", line 1419, in _parse_datatype_json_value
+    return _all_complex_types[tpe].fromJson(json_value)
+  File "/opt/spark/python/lib/pyspark.zip/pyspark/sql/types.py", line 1017, in fromJson
+    return StructType([StructField.fromJson(f) for f in json["fields"]])
+  File "/opt/spark/python/lib/pyspark.zip/pyspark/sql/types.py", line 1017, in <listcomp>
+    return StructType([StructField.fromJson(f) for f in json["fields"]])
+  File "/opt/spark/python/lib/pyspark.zip/pyspark/sql/types.py", line 708, in fromJson
+    _parse_datatype_json_value(json["type"]),
+  File "/opt/spark/python/lib/pyspark.zip/pyspark/sql/types.py", line 1421, in _parse_datatype_json_value
+    return UserDefinedType.fromJson(json_value)
+  File "/opt/spark/python/lib/pyspark.zip/pyspark/sql/types.py", line 1205, in fromJson
+    m = __import__(pyModule, globals(), locals(), [pyClass])
+  File "/opt/spark/python/lib/pyspark.zip/pyspark/ml/__init__.py", line 22, in <module>
+    from pyspark.ml.base import (
+  File "/opt/spark/python/lib/pyspark.zip/pyspark/ml/base.py", line 40, in <module>
+    from pyspark.ml.param import P
+  File "/opt/spark/python/lib/pyspark.zip/pyspark/ml/param/__init__.py", line 32, in <module>
+    import numpy as np
+ModuleNotFoundError: No module named 'numpy'
+
+	at org.apache.spark.api.python.BasePythonRunner$ReaderIterator.handlePythonException(PythonRunner.scala:572)
+	at org.apache.spark.sql.execution.python.BasePythonUDFRunner$$anon$1.read(PythonUDFRunner.scala:94)
+	at org.apache.spark.sql.execution.python.BasePythonUDFRunner$$anon$1.read(PythonUDFRunner.scala:75)
+	at org.apache.spark.api.python.BasePythonRunner$ReaderIterator.hasNext(PythonRunner.scala:525)
+	at org.apache.spark.InterruptibleIterator.hasNext(InterruptibleIterator.scala:37)
+	at scala.collection.Iterator$$anon$11.hasNext(Iterator.scala:491)
+	at scala.collection.Iterator$$anon$10.hasNext(Iterator.scala:460)
+	at scala.collection.Iterator$$anon$10.hasNext(Iterator.scala:460)
+	at org.apache.spark.sql.catalyst.expressions.GeneratedClass$GeneratedIteratorForCodegenStage2.processNext(Unknown Source)
+	at org.apache.spark.sql.execution.BufferedRowIterator.hasNext(BufferedRowIterator.java:43)
+	at org.apache.spark.sql.execution.WholeStageCodegenEvaluatorFactory$WholeStageCodegenPartitionEvaluator$$anon$1.hasNext(WholeStageCodegenEvaluatorFactory.scala:43)
+	at scala.collection.Iterator$$anon$10.hasNext(Iterator.scala:460)
+	at org.apache.spark.shuffle.sort.BypassMergeSortShuffleWriter.write(BypassMergeSortShuffleWriter.java:140)
+	at org.apache.spark.shuffle.ShuffleWriteProcessor.write(ShuffleWriteProcessor.scala:59)
+	at org.apache.spark.scheduler.ShuffleMapTask.runTask(ShuffleMapTask.scala:104)
+	at org.apache.spark.scheduler.ShuffleMapTask.runTask(ShuffleMapTask.scala:54)
 	at org.apache.spark.TaskContext.runTaskWithListeners(TaskContext.scala:166)
 	at org.apache.spark.scheduler.Task.run(Task.scala:141)
 	at org.apache.spark.executor.Executor$TaskRunner.$anonfun$run$4(Executor.scala:620)
@@ -102,153 +175,194 @@ To adjust logging level use sc.setLogLevel(newLevel). For SparkR, use setLogLeve
 	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:635)
 	at java.base/java.lang.Thread.run(Thread.java:840)
 
-26/10/19 00:07:53 ERROR TaskSetManager: Task 0 in stage 1.0 failed 4 times; aborting job
+26/10/19 00:19:51 ERROR TaskSetManager: Task 0 in stage 19.0 failed 4 times; aborting job
+26/10/19 00:19:51 WARN TaskSetManager: Lost task 1.2 in stage 19.0 (TID 72) (172.18.0.10 executor 0): TaskKilled (Stage cancelled: Job aborted due to stage failure: Task 0 in stage 19.0 failed 4 times, most recent failure: Lost task 0.3 in stage 19.0 (TID 71) (172.18.0.10 executor 0): org.apache.spark.api.python.PythonException: Traceback (most recent call last):
+  File "/opt/spark/python/lib/pyspark.zip/pyspark/worker.py", line 1247, in main
+    process()
+  File "/opt/spark/python/lib/pyspark.zip/pyspark/worker.py", line 1239, in process
+    serializer.dump_stream(out_iter, outfile)
+  File "/opt/spark/python/lib/pyspark.zip/pyspark/serializers.py", line 225, in dump_stream
+    self.serializer.dump_stream(self._batched(iterator), stream)
+  File "/opt/spark/python/lib/pyspark.zip/pyspark/serializers.py", line 146, in dump_stream
+    for obj in iterator:
+  File "/opt/spark/python/lib/pyspark.zip/pyspark/serializers.py", line 214, in _batched
+    for item in iterator:
+  File "/opt/spark/python/lib/pyspark.zip/pyspark/serializers.py", line 152, in load_stream
+    yield self._read_with_length(stream)
+  File "/opt/spark/python/lib/pyspark.zip/pyspark/serializers.py", line 174, in _read_with_length
+    return self.loads(obj)
+  File "/opt/spark/python/lib/pyspark.zip/pyspark/serializers.py", line 472, in loads
+    return cloudpickle.loads(obj, encoding=encoding)
+  File "/opt/spark/python/lib/pyspark.zip/pyspark/sql/types.py", line 1377, in _parse_datatype_json_string
+    return _parse_datatype_json_value(json.loads(json_string))
+  File "/opt/spark/python/lib/pyspark.zip/pyspark/sql/types.py", line 1419, in _parse_datatype_json_value
+    return _all_complex_types[tpe].fromJson(json_value)
+  File "/opt/spark/python/lib/pyspark.zip/pyspark/sql/types.py", line 1017, in fromJson
+    return StructType([StructField.fromJson(f) for f in json["fields"]])
+  File "/opt/spark/python/lib/pyspark.zip/pyspark/sql/types.py", line 1017, in <listcomp>
+    return StructType([StructField.fromJson(f) for f in json["fields"]])
+  File "/opt/spark/python/lib/pyspark.zip/pyspark/sql/types.py", line 708, in fromJson
+    _parse_datatype_json_value(json["type"]),
+  File "/opt/spark/python/lib/pyspark.zip/pyspark/sql/types.py", line 1421, in _parse_datatype_json_value
+    return UserDefinedType.fromJson(json_value)
+  File "/opt/spark/python/lib/pyspark.zip/pyspark/sql/types.py", line 1205, in fromJson
+    m = __import__(pyModule, globals(), locals(), [pyClass])
+  File "/opt/spark/python/lib/pyspark.zip/pyspark/ml/__init__.py", line 22, in <module>
+    from pyspark.ml.base import (
+  File "/opt/spark/python/lib/pyspark.zip/pyspark/ml/base.py", line 40, in <module>
+    from pyspark.ml.param import P
+  File "/opt/spark/python/lib/pyspark.zip/pyspark/ml/param/__init__.py", line 32, in <module>
+    import numpy as np
+ModuleNotFoundError: No module named 'numpy'
+
+	at org.apache.spark.api.python.BasePythonRunner$ReaderIterator.handlePythonException(PythonRunner.scala:572)
+	at org.apache.spark.sql.execution.python.BasePythonUDFRunner$$anon$1.read(PythonUDFRunner.scala:94)
+	at org.apache.spark.sql.execution.python.BasePythonUDFRunner$$anon$1.read(PythonUDFRunner.scala:75)
+	at org.apache.spark.api.python.BasePythonRunner$ReaderIterator.hasNext(PythonRunner.scala:525)
+	at org.apache.spark.InterruptibleIterator.hasNext(InterruptibleIterator.scala:37)
+	at scala.collection.Iterator$$anon$11.hasNext(Iterator.scala:491)
+	at scala.collection.Iterator$$anon$10.hasNext(Iterator.scala:460)
+	at scala.collection.Iterator$$anon$10.hasNext(Iterator.scala:460)
+	at org.apache.spark.sql.catalyst.expressions.GeneratedClass$GeneratedIteratorForCodegenStage2.processNext(Unknown Source)
+	at org.apache.spark.sql.execution.BufferedRowIterator.hasNext(BufferedRowIterator.java:43)
+	at org.apache.spark.sql.execution.WholeStageCodegenEvaluatorFactory$WholeStageCodegenPartitionEvaluator$$anon$1.hasNext(WholeStageCodegenEvaluatorFactory.scala:43)
+	at scala.collection.Iterator$$anon$10.hasNext(Iterator.scala:460)
+	at org.apache.spark.shuffle.sort.BypassMergeSortShuffleWriter.write(BypassMergeSortShuffleWriter.java:140)
+	at org.apache.spark.shuffle.ShuffleWriteProcessor.write(ShuffleWriteProcessor.scala:59)
+	at org.apache.spark.scheduler.ShuffleMapTask.runTask(ShuffleMapTask.scala:104)
+	at org.apache.spark.scheduler.ShuffleMapTask.runTask(ShuffleMapTask.scala:54)
+	at org.apache.spark.TaskContext.runTaskWithListeners(TaskContext.scala:166)
+	at org.apache.spark.scheduler.Task.run(Task.scala:141)
+	at org.apache.spark.executor.Executor$TaskRunner.$anonfun$run$4(Executor.scala:620)
+	at org.apache.spark.util.SparkErrorUtils.tryWithSafeFinally(SparkErrorUtils.scala:64)
+	at org.apache.spark.util.SparkErrorUtils.tryWithSafeFinally$(SparkErrorUtils.scala:61)
+	at org.apache.spark.util.Utils$.tryWithSafeFinally(Utils.scala:94)
+	at org.apache.spark.executor.Executor$TaskRunner.run(Executor.scala:623)
+	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1136)
+	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:635)
+	at java.base/java.lang.Thread.run(Thread.java:840)
+
+Driver stacktrace:)
+
+[Stage 19:>                                                         (0 + 1) / 4]
+26/10/19 00:19:51 WARN TaskSetManager: Lost task 2.1 in stage 19.0 (TID 70) (172.18.0.10 executor 0): TaskKilled (Stage cancelled: Job aborted due to stage failure: Task 0 in stage 19.0 failed 4 times, most recent failure: Lost task 0.3 in stage 19.0 (TID 71) (172.18.0.10 executor 0): org.apache.spark.api.python.PythonException: Traceback (most recent call last):
+  File "/opt/spark/python/lib/pyspark.zip/pyspark/worker.py", line 1247, in main
+    process()
+  File "/opt/spark/python/lib/pyspark.zip/pyspark/worker.py", line 1239, in process
+    serializer.dump_stream(out_iter, outfile)
+  File "/opt/spark/python/lib/pyspark.zip/pyspark/serializers.py", line 225, in dump_stream
+    self.serializer.dump_stream(self._batched(iterator), stream)
+  File "/opt/spark/python/lib/pyspark.zip/pyspark/serializers.py", line 146, in dump_stream
+    for obj in iterator:
+  File "/opt/spark/python/lib/pyspark.zip/pyspark/serializers.py", line 214, in _batched
+    for item in iterator:
+  File "/opt/spark/python/lib/pyspark.zip/pyspark/serializers.py", line 152, in load_stream
+    yield self._read_with_length(stream)
+  File "/opt/spark/python/lib/pyspark.zip/pyspark/serializers.py", line 174, in _read_with_length
+    return self.loads(obj)
+  File "/opt/spark/python/lib/pyspark.zip/pyspark/serializers.py", line 472, in loads
+    return cloudpickle.loads(obj, encoding=encoding)
+  File "/opt/spark/python/lib/pyspark.zip/pyspark/sql/types.py", line 1377, in _parse_datatype_json_string
+    return _parse_datatype_json_value(json.loads(json_string))
+  File "/opt/spark/python/lib/pyspark.zip/pyspark/sql/types.py", line 1419, in _parse_datatype_json_value
+    return _all_complex_types[tpe].fromJson(json_value)
+  File "/opt/spark/python/lib/pyspark.zip/pyspark/sql/types.py", line 1017, in fromJson
+    return StructType([StructField.fromJson(f) for f in json["fields"]])
+  File "/opt/spark/python/lib/pyspark.zip/pyspark/sql/types.py", line 1017, in <listcomp>
+    return StructType([StructField.fromJson(f) for f in json["fields"]])
+  File "/opt/spark/python/lib/pyspark.zip/pyspark/sql/types.py", line 708, in fromJson
+    _parse_datatype_json_value(json["type"]),
+  File "/opt/spark/python/lib/pyspark.zip/pyspark/sql/types.py", line 1421, in _parse_datatype_json_value
+    return UserDefinedType.fromJson(json_value)
+  File "/opt/spark/python/lib/pyspark.zip/pyspark/sql/types.py", line 1205, in fromJson
+    m = __import__(pyModule, globals(), locals(), [pyClass])
+  File "/opt/spark/python/lib/pyspark.zip/pyspark/ml/__init__.py", line 22, in <module>
+    from pyspark.ml.base import (
+  File "/opt/spark/python/lib/pyspark.zip/pyspark/ml/base.py", line 40, in <module>
+    from pyspark.ml.param import P
+  File "/opt/spark/python/lib/pyspark.zip/pyspark/ml/param/__init__.py", line 32, in <module>
+    import numpy as np
+ModuleNotFoundError: No module named 'numpy'
+
+	at org.apache.spark.api.python.BasePythonRunner$ReaderIterator.handlePythonException(PythonRunner.scala:572)
+	at org.apache.spark.sql.execution.python.BasePythonUDFRunner$$anon$1.read(PythonUDFRunner.scala:94)
+	at org.apache.spark.sql.execution.python.BasePythonUDFRunner$$anon$1.read(PythonUDFRunner.scala:75)
+	at org.apache.spark.api.python.BasePythonRunner$ReaderIterator.hasNext(PythonRunner.scala:525)
+	at org.apache.spark.InterruptibleIterator.hasNext(InterruptibleIterator.scala:37)
+	at scala.collection.Iterator$$anon$11.hasNext(Iterator.scala:491)
+	at scala.collection.Iterator$$anon$10.hasNext(Iterator.scala:460)
+	at scala.collection.Iterator$$anon$10.hasNext(Iterator.scala:460)
+	at org.apache.spark.sql.catalyst.expressions.GeneratedClass$GeneratedIteratorForCodegenStage2.processNext(Unknown Source)
+	at org.apache.spark.sql.execution.BufferedRowIterator.hasNext(BufferedRowIterator.java:43)
+	at org.apache.spark.sql.execution.WholeStageCodegenEvaluatorFactory$WholeStageCodegenPartitionEvaluator$$anon$1.hasNext(WholeStageCodegenEvaluatorFactory.scala:43)
+	at scala.collection.Iterator$$anon$10.hasNext(Iterator.scala:460)
+	at org.apache.spark.shuffle.sort.BypassMergeSortShuffleWriter.write(BypassMergeSortShuffleWriter.java:140)
+	at org.apache.spark.shuffle.ShuffleWriteProcessor.write(ShuffleWriteProcessor.scala:59)
+	at org.apache.spark.scheduler.ShuffleMapTask.runTask(ShuffleMapTask.scala:104)
+	at org.apache.spark.scheduler.ShuffleMapTask.runTask(ShuffleMapTask.scala:54)
+	at org.apache.spark.TaskContext.runTaskWithListeners(TaskContext.scala:166)
+	at org.apache.spark.scheduler.Task.run(Task.scala:141)
+	at org.apache.spark.executor.Executor$TaskRunner.$anonfun$run$4(Executor.scala:620)
+	at org.apache.spark.util.SparkErrorUtils.tryWithSafeFinally(SparkErrorUtils.scala:64)
+	at org.apache.spark.util.SparkErrorUtils.tryWithSafeFinally$(SparkErrorUtils.scala:61)
+	at org.apache.spark.util.Utils$.tryWithSafeFinally(Utils.scala:94)
+	at org.apache.spark.executor.Executor$TaskRunner.run(Executor.scala:623)
+	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1136)
+	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:635)
+	at java.base/java.lang.Thread.run(Thread.java:840)
+
+Driver stacktrace:)
 Traceback (most recent call last):
   File "/opt/airflow/src/scipulse/spark/gold_job.py", line 45, in <module>
     main()
-  File "/opt/airflow/src/scipulse/spark/gold_job.py", line 26, in main
-    arxiv, hn, cit = load_silver(spark)
-  File "/opt/airflow/src/scipulse/spark/join.py", line 12, in load_silver
-    arxiv = spark.read.parquet(s3a(buckets.ARXIV_CLEAN))
-  File "/home/airflow/.local/lib/python3.10/site-packages/pyspark/sql/readwriter.py", line 544, in parquet
-    return self._df(self._jreader.parquet(_to_seq(self._spark._sc, paths)))
+  File "/opt/airflow/src/scipulse/spark/gold_job.py", line 39, in main
+    write_gold(df)
+  File "/opt/airflow/src/scipulse/spark/write_es.py", line 24, in write_gold
+    .save()
+  File "/home/airflow/.local/lib/python3.10/site-packages/pyspark/sql/readwriter.py", line 1461, in save
+    self._jwrite.save()
   File "/home/airflow/.local/lib/python3.10/site-packages/py4j/java_gateway.py", line 1322, in __call__
     return_value = get_return_value(
-  File "/home/airflow/.local/lib/python3.10/site-packages/pyspark/errors/exceptions/captured.py", line 179, in deco
-    return f(*a, **kw)
-  File "/home/airflow/.local/lib/python3.10/site-packages/py4j/protocol.py", line 326, in get_return_value
-    raise Py4JJavaError(
-py4j.protocol.Py4JJavaError: An error occurred while calling o54.parquet.
-: org.apache.spark.SparkException: Job aborted due to stage failure: Task 0 in stage 1.0 failed 4 times, most recent failure: Lost task 0.3 in stage 1.0 (TID 38) (172.18.0.10 executor 0): org.apache.spark.sql.AnalysisException: Illegal Parquet type: INT64 (TIMESTAMP(NANOS,true)).
-	at org.apache.spark.sql.errors.QueryCompilationErrors$.illegalParquetTypeError(QueryCompilationErrors.scala:1825)
-	at org.apache.spark.sql.execution.datasources.parquet.ParquetToSparkSchemaConverter.illegalType$1(ParquetSchemaConverter.scala:199)
-	at org.apache.spark.sql.execution.datasources.parquet.ParquetToSparkSchemaConverter.$anonfun$convertPrimitiveField$2(ParquetSchemaConverter.scala:276)
-	at scala.Option.getOrElse(Option.scala:189)
-	at org.apache.spark.sql.execution.datasources.parquet.ParquetToSparkSchemaConverter.convertPrimitiveField(ParquetSchemaConverter.scala:217)
-	at org.apache.spark.sql.execution.datasources.parquet.ParquetToSparkSchemaConverter.convertField(ParquetSchemaConverter.scala:180)
-	at org.apache.spark.sql.execution.datasources.parquet.ParquetToSparkSchemaConverter.$anonfun$convertInternal$3(ParquetSchemaConverter.scala:140)
-	at org.apache.spark.sql.execution.datasources.parquet.ParquetToSparkSchemaConverter.$anonfun$convertInternal$3$adapted(ParquetSchemaConverter.scala:110)
-	at scala.collection.TraversableLike.$anonfun$map$1(TraversableLike.scala:286)
-	at scala.collection.immutable.Range.foreach(Range.scala:158)
-	at scala.collection.TraversableLike.map(TraversableLike.scala:286)
-	at scala.collection.TraversableLike.map$(TraversableLike.scala:279)
-	at scala.collection.AbstractTraversable.map(Traversable.scala:108)
-	at org.apache.spark.sql.execution.datasources.parquet.ParquetToSparkSchemaConverter.convertInternal(ParquetSchemaConverter.scala:110)
-	at org.apache.spark.sql.execution.datasources.parquet.ParquetToSparkSchemaConverter.convert(ParquetSchemaConverter.scala:80)
-	at org.apache.spark.sql.execution.datasources.parquet.ParquetFileFormat$.$anonfun$readSchemaFromFooter$2(ParquetFileFormat.scala:514)
-	at scala.Option.getOrElse(Option.scala:189)
-	at org.apache.spark.sql.execution.datasources.parquet.ParquetFileFormat$.readSchemaFromFooter(ParquetFileFormat.scala:514)
-	at org.apache.spark.sql.execution.datasources.parquet.ParquetFileFormat$.$anonfun$mergeSchemasInParallel$2(ParquetFileFormat.scala:494)
-	at scala.collection.immutable.Stream.map(Stream.scala:418)
-	at org.apache.spark.sql.execution.datasources.parquet.ParquetFileFormat$.$anonfun$mergeSchemasInParallel$1(ParquetFileFormat.scala:494)
-	at org.apache.spark.sql.execution.datasources.parquet.ParquetFileFormat$.$anonfun$mergeSchemasInParallel$1$adapted(ParquetFileFormat.scala:485)
-	at org.apache.spark.sql.execution.datasources.SchemaMergeUtils$.$anonfun$mergeSchemasInParallel$2(SchemaMergeUtils.scala:80)
-	at org.apache.spark.rdd.RDD.$anonfun$mapPartitions$2(RDD.scala:858)
-	at org.apache.spark.rdd.RDD.$anonfun$mapPartitions$2$adapted(RDD.scala:858)
-	at org.apache.spark.rdd.MapPartitionsRDD.compute(MapPartitionsRDD.scala:52)
-	at org.apache.spark.rdd.RDD.computeOrReadCheckpoint(RDD.scala:367)
-	at org.apache.spark.rdd.RDD.iterator(RDD.scala:331)
-	at org.apache.spark.scheduler.ResultTask.runTask(ResultTask.scala:93)
-	at org.apache.spark.TaskContext.runTaskWithListeners(TaskContext.scala:166)
-	at org.apache.spark.scheduler.Task.run(Task.scala:141)
-	at org.apache.spark.executor.Executor$TaskRunner.$anonfun$run$4(Executor.scala:620)
-	at org.apache.spark.util.SparkErrorUtils.tryWithSafeFinally(SparkErrorUtils.scala:64)
-	at org.apache.spark.util.SparkErrorUtils.tryWithSafeFinally$(SparkErrorUtils.scala:61)
-	at org.apache.spark.util.Utils$.tryWithSafeFinally(Utils.scala:94)
-	at org.apache.spark.executor.Executor$TaskRunner.run(Executor.scala:623)
-	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1136)
-	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:635)
-	at java.base/java.lang.Thread.run(Thread.java:840)
-
-Driver stacktrace:
-	at org.apache.spark.scheduler.DAGScheduler.failJobAndIndependentStages(DAGScheduler.scala:2856)
-	at org.apache.spark.scheduler.DAGScheduler.$anonfun$abortStage$2(DAGScheduler.scala:2792)
-	at org.apache.spark.scheduler.DAGScheduler.$anonfun$abortStage$2$adapted(DAGScheduler.scala:2791)
-	at scala.collection.mutable.ResizableArray.foreach(ResizableArray.scala:62)
-	at scala.collection.mutable.ResizableArray.foreach$(ResizableArray.scala:55)
-	at scala.collection.mutable.ArrayBuffer.foreach(ArrayBuffer.scala:49)
-	at org.apache.spark.scheduler.DAGScheduler.abortStage(DAGScheduler.scala:2791)
-	at org.apache.spark.scheduler.DAGScheduler.$anonfun$handleTaskSetFailed$1(DAGScheduler.scala:1247)
-	at org.apache.spark.scheduler.DAGScheduler.$anonfun$handleTaskSetFailed$1$adapted(DAGScheduler.scala:1247)
-	at scala.Option.foreach(Option.scala:407)
-	at org.apache.spark.scheduler.DAGScheduler.handleTaskSetFailed(DAGScheduler.scala:1247)
-	at org.apache.spark.scheduler.DAGSchedulerEventProcessLoop.doOnReceive(DAGScheduler.scala:3060)
-	at org.apache.spark.scheduler.DAGSchedulerEventProcessLoop.onReceive(DAGScheduler.scala:2994)
-	at org.apache.spark.scheduler.DAGSchedulerEventProcessLoop.onReceive(DAGScheduler.scala:2983)
-	at org.apache.spark.util.EventLoop$$anon$1.run(EventLoop.scala:49)
-	at org.apache.spark.scheduler.DAGScheduler.runJob(DAGScheduler.scala:989)
-	at org.apache.spark.SparkContext.runJob(SparkContext.scala:2393)
-	at org.apache.spark.SparkContext.runJob(SparkContext.scala:2414)
-	at org.apache.spark.SparkContext.runJob(SparkContext.scala:2433)
-	at org.apache.spark.SparkContext.runJob(SparkContext.scala:2458)
-	at org.apache.spark.rdd.RDD.$anonfun$collect$1(RDD.scala:1049)
-	at org.apache.spark.rdd.RDDOperationScope$.withScope(RDDOperationScope.scala:151)
-	at org.apache.spark.rdd.RDDOperationScope$.withScope(RDDOperationScope.scala:112)
-	at org.apache.spark.rdd.RDD.withScope(RDD.scala:410)
-	at org.apache.spark.rdd.RDD.collect(RDD.scala:1048)
-	at org.apache.spark.sql.execution.datasources.SchemaMergeUtils$.mergeSchemasInParallel(SchemaMergeUtils.scala:74)
-	at org.apache.spark.sql.execution.datasources.parquet.ParquetFileFormat$.mergeSchemasInParallel(ParquetFileFormat.scala:497)
-	at org.apache.spark.sql.execution.datasources.parquet.ParquetUtils$.inferSchema(ParquetUtils.scala:132)
-	at org.apache.spark.sql.execution.datasources.parquet.ParquetFileFormat.inferSchema(ParquetFileFormat.scala:79)
-	at org.apache.spark.sql.execution.datasources.DataSource.$anonfun$getOrInferFileFormatSchema$11(DataSource.scala:208)
-	at scala.Option.orElse(Option.scala:447)
-	at org.apache.spark.sql.execution.datasources.DataSource.getOrInferFileFormatSchema(DataSource.scala:205)
-	at org.apache.spark.sql.execution.datasources.DataSource.resolveRelation(DataSource.scala:407)
-	at org.apache.spark.sql.DataFrameReader.loadV1Source(DataFrameReader.scala:229)
-	at org.apache.spark.sql.DataFrameReader.$anonfun$load$2(DataFrameReader.scala:211)
-	at scala.Option.getOrElse(Option.scala:189)
-	at org.apache.spark.sql.DataFrameReader.load(DataFrameReader.scala:211)
-	at org.apache.spark.sql.DataFrameReader.parquet(DataFrameReader.scala:563)
-	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
-	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:77)
-	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
-	at java.base/java.lang.reflect.Method.invoke(Method.java:569)
-	at py4j.reflection.MethodInvoker.invoke(MethodInvoker.java:244)
-	at py4j.reflection.ReflectionEngine.invoke(ReflectionEngine.java:374)
-	at py4j.Gateway.invoke(Gateway.java:282)
-	at py4j.commands.AbstractCommand.invokeMethod(AbstractCommand.java:132)
-	at py4j.commands.CallCommand.execute(CallCommand.java:79)
-	at py4j.ClientServerConnection.waitForCommands(ClientServerConnection.java:182)
-	at py4j.ClientServerConnection.run(ClientServerConnection.java:106)
-	at java.base/java.lang.Thread.run(Thread.java:840)
-Caused by: org.apache.spark.sql.AnalysisException: Illegal Parquet type: INT64 (TIMESTAMP(NANOS,true)).
-	at org.apache.spark.sql.errors.QueryCompilationErrors$.illegalParquetTypeError(QueryCompilationErrors.scala:1825)
-	at org.apache.spark.sql.execution.datasources.parquet.ParquetToSparkSchemaConverter.illegalType$1(ParquetSchemaConverter.scala:199)
-	at org.apache.spark.sql.execution.datasources.parquet.ParquetToSparkSchemaConverter.$anonfun$convertPrimitiveField$2(ParquetSchemaConverter.scala:276)
-	at scala.Option.getOrElse(Option.scala:189)
-	at org.apache.spark.sql.execution.datasources.parquet.ParquetToSparkSchemaConverter.convertPrimitiveField(ParquetSchemaConverter.scala:217)
-	at org.apache.spark.sql.execution.datasources.parquet.ParquetToSparkSchemaConverter.convertField(ParquetSchemaConverter.scala:180)
-	at org.apache.spark.sql.execution.datasources.parquet.ParquetToSparkSchemaConverter.$anonfun$convertInternal$3(ParquetSchemaConverter.scala:140)
-	at org.apache.spark.sql.execution.datasources.parquet.ParquetToSparkSchemaConverter.$anonfun$convertInternal$3$adapted(ParquetSchemaConverter.scala:110)
-	at scala.collection.TraversableLike.$anonfun$map$1(TraversableLike.scala:286)
-	at scala.collection.immutable.Range.foreach(Range.scala:158)
-	at scala.collection.TraversableLike.map(TraversableLike.scala:286)
-	at scala.collection.TraversableLike.map$(TraversableLike.scala:279)
-	at scala.collection.AbstractTraversable.map(Traversable.scala:108)
-	at org.apache.spark.sql.execution.datasources.parquet.ParquetToSparkSchemaConverter.convertInternal(ParquetSchemaConverter.scala:110)
-	at org.apache.spark.sql.execution.datasources.parquet.ParquetToSparkSchemaConverter.convert(ParquetSchemaConverter.scala:80)
-	at org.apache.spark.sql.execution.datasources.parquet.ParquetFileFormat$.$anonfun$readSchemaFromFooter$2(ParquetFileFormat.scala:514)
-	at scala.Option.getOrElse(Option.scala:189)
-	at org.apache.spark.sql.execution.datasources.parquet.ParquetFileFormat$.readSchemaFromFooter(ParquetFileFormat.scala:514)
-	at org.apache.spark.sql.execution.datasources.parquet.ParquetFileFormat$.$anonfun$mergeSchemasInParallel$2(ParquetFileFormat.scala:494)
-	at scala.collection.immutable.Stream.map(Stream.scala:418)
-	at org.apache.spark.sql.execution.datasources.parquet.ParquetFileFormat$.$anonfun$mergeSchemasInParallel$1(ParquetFileFormat.scala:494)
-	at org.apache.spark.sql.execution.datasources.parquet.ParquetFileFormat$.$anonfun$mergeSchemasInParallel$1$adapted(ParquetFileFormat.scala:485)
-	at org.apache.spark.sql.execution.datasources.SchemaMergeUtils$.$anonfun$mergeSchemasInParallel$2(SchemaMergeUtils.scala:80)
-	at org.apache.spark.rdd.RDD.$anonfun$mapPartitions$2(RDD.scala:858)
-	at org.apache.spark.rdd.RDD.$anonfun$mapPartitions$2$adapted(RDD.scala:858)
-	at org.apache.spark.rdd.MapPartitionsRDD.compute(MapPartitionsRDD.scala:52)
-	at org.apache.spark.rdd.RDD.computeOrReadCheckpoint(RDD.scala:367)
-	at org.apache.spark.rdd.RDD.iterator(RDD.scala:331)
-	at org.apache.spark.scheduler.ResultTask.runTask(ResultTask.scala:93)
-	at org.apache.spark.TaskContext.runTaskWithListeners(TaskContext.scala:166)
-	at org.apache.spark.scheduler.Task.run(Task.scala:141)
-	at org.apache.spark.executor.Executor$TaskRunner.$anonfun$run$4(Executor.scala:620)
-	at org.apache.spark.util.SparkErrorUtils.tryWithSafeFinally(SparkErrorUtils.scala:64)
-	at org.apache.spark.util.SparkErrorUtils.tryWithSafeFinally$(SparkErrorUtils.scala:61)
-	at org.apache.spark.util.Utils$.tryWithSafeFinally(Utils.scala:94)
-	at org.apache.spark.executor.Executor$TaskRunner.run(Executor.scala:623)
-	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1136)
-	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:635)
-	at java.base/java.lang.Thread.run(Thread.java:840)
+  File "/home/airflow/.local/lib/python3.10/site-packages/pyspark/errors/exceptions/captured.py", line 185, in deco
+    raise converted from None
+pyspark.errors.exceptions.captured.PythonException: 
+  An exception was thrown from the Python worker. Please see the stack trace below.
+Traceback (most recent call last):
+  File "/opt/spark/python/lib/pyspark.zip/pyspark/worker.py", line 1247, in main
+    process()
+  File "/opt/spark/python/lib/pyspark.zip/pyspark/worker.py", line 1239, in process
+    serializer.dump_stream(out_iter, outfile)
+  File "/opt/spark/python/lib/pyspark.zip/pyspark/serializers.py", line 225, in dump_stream
+    self.serializer.dump_stream(self._batched(iterator), stream)
+  File "/opt/spark/python/lib/pyspark.zip/pyspark/serializers.py", line 146, in dump_stream
+    for obj in iterator:
+  File "/opt/spark/python/lib/pyspark.zip/pyspark/serializers.py", line 214, in _batched
+    for item in iterator:
+  File "/opt/spark/python/lib/pyspark.zip/pyspark/serializers.py", line 152, in load_stream
+    yield self._read_with_length(stream)
+  File "/opt/spark/python/lib/pyspark.zip/pyspark/serializers.py", line 174, in _read_with_length
+    return self.loads(obj)
+  File "/opt/spark/python/lib/pyspark.zip/pyspark/serializers.py", line 472, in loads
+    return cloudpickle.loads(obj, encoding=encoding)
+  File "/opt/spark/python/lib/pyspark.zip/pyspark/sql/types.py", line 1377, in _parse_datatype_json_string
+    return _parse_datatype_json_value(json.loads(json_string))
+  File "/opt/spark/python/lib/pyspark.zip/pyspark/sql/types.py", line 1419, in _parse_datatype_json_value
+    return _all_complex_types[tpe].fromJson(json_value)
+  File "/opt/spark/python/lib/pyspark.zip/pyspark/sql/types.py", line 1017, in fromJson
+    return StructType([StructField.fromJson(f) for f in json["fields"]])
+  File "/opt/spark/python/lib/pyspark.zip/pyspark/sql/types.py", line 1017, in <listcomp>
+    return StructType([StructField.fromJson(f) for f in json["fields"]])
+  File "/opt/spark/python/lib/pyspark.zip/pyspark/sql/types.py", line 708, in fromJson
+    _parse_datatype_json_value(json["type"]),
+  File "/opt/spark/python/lib/pyspark.zip/pyspark/sql/types.py", line 1421, in _parse_datatype_json_value
+    return UserDefinedType.fromJson(json_value)
+  File "/opt/spark/python/lib/pyspark.zip/pyspark/sql/types.py", line 1205, in fromJson
+    m = __import__(pyModule, globals(), locals(), [pyClass])
+  File "/opt/spark/python/lib/pyspark.zip/pyspark/ml/__init__.py", line 22, in <module>
+    from pyspark.ml.base import (
+  File "/opt/spark/python/lib/pyspark.zip/pyspark/ml/base.py", line 40, in <module>
+    from pyspark.ml.param import P
+  File "/opt/spark/python/lib/pyspark.zip/pyspark/ml/param/__init__.py", line 32, in <module>
+    import numpy as np
+ModuleNotFoundError: No module named 'numpy'
 
