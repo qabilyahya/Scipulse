@@ -1,0 +1,5 @@
+# Exécution des notebooks Spark dans le conteneur (couche Docker séparée : pas de réinstallation de pyspark)
+nbconvert==7.16.4
+ipykernel==6.29.5
+matplotlib==3.9.2
+seaborn==0.13.2

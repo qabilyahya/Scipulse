@@ -12,3 +12,7 @@ ENV JAVA_HOME=/usr/lib/jvm/java-17
 USER airflow
 COPY docker/airflow/requirements.txt /tmp/requirements.txt
 RUN pip install --no-cache-dir -r /tmp/requirements.txt
+
+# Dépendances des notebooks (couche séparée : un ajout ici ne réinstalle pas pyspark)
+COPY docker/airflow/requirements-notebooks.txt /tmp/requirements-notebooks.txt
+RUN pip install --no-cache-dir -r /tmp/requirements-notebooks.txt

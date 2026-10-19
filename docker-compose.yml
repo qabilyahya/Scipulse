@@ -23,6 +23,8 @@ x-airflow-common: &airflow-common
     - ./elasticsearch:/opt/airflow/elasticsearch
     - ./great_expectations:/opt/airflow/great_expectations
     - ./data:/opt/airflow/data
+    - ./notebooks:/opt/airflow/notebooks
+    - ./docs:/opt/airflow/docs
     - airflow-logs:/opt/airflow/logs
   user: "${AIRFLOW_UID:-50000}:0"
   depends_on:
@@ -155,4 +157,3 @@ volumes:
   minio-data:
   es-data:
   airflow-logs:
-
