@@ -27,8 +27,11 @@ def write_parquet(df: pd.DataFrame, bucket: str, path: str, partition_cols: list
         filesystem=_s3fs(),
         partition_cols=partition_cols,
         existing_data_behavior="overwrite_or_ignore",
+        coerce_timestamps="us",  # Spark 3.5 ne lit pas les nanosecondes
+        allow_truncated_timestamps=True,
     )
 
 
 def read_parquet(bucket: str, path: str = "", columns: list[str] | None = None) -> pd.DataFrame:
     return pq.read_table(f"{bucket}/{path}".rstrip("/"), filesystem=_s3fs(), columns=columns).to_pandas()
+
