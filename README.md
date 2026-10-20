@@ -7,7 +7,7 @@
 Architecture **Medallion** (Bronze → Silver → Gold) sur **MinIO**, orchestrée par **Airflow**, validée par
 **Great Expectations**, traitée par **Apache Spark** et servie par **Elasticsearch / Kibana**.
 
-**Auteur** : Yahya Qabil — Projet #4, L'École Multimédia
+**Auteur** : Yehia Qabil 
 
 ---
 
